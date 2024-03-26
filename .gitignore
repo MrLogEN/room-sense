@@ -5,3 +5,6 @@
 /RoomSense.Api.Lib/bin
 /RoomSense.Frontend.App/bin 
 /RoomSense.Frontend.App/obj
+/RoomSense.Api.Lib.Tests/bin
+/RoomSense.Api.Lib.Tests/obj
+
