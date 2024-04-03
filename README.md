@@ -1,2 +1,4 @@
-# Room Sense
-Room Sense is an app that allows IoT devices to store data about temperature and humidity in a room into a database and then it helps to visualize the data through aggregation ad charts in a pretty UI.
+# Room Sense API
+This application is an API that provides IoT devices a way of storing data about humidity and temperature into a database.
+Then a web application can request this data and visualize it via charts and filters.
+
