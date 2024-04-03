@@ -15,7 +15,7 @@ public class ApiKeyFilter : IAsyncAuthorizationFilter
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
-        if (context.HttpContext.Request.Headers.TryGetValue(
+        if (!context.HttpContext.Request.Headers.TryGetValue(
                 ApiAuthConstants.ApiKeyHeaderName,
                 out var extractedApiKey))
         {
