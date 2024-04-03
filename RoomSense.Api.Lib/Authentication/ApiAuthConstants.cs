@@ -1,5 +1,4 @@
-namespace RoomSense.Api.Lib;
-
+namespace RoomSense.Api.Lib.Authentication;
 public static class ApiAuthConstants
 {
     public static string SectionName = "Authentication:ApiKey";
