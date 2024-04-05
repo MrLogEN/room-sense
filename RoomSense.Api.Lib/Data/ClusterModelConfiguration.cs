@@ -18,7 +18,7 @@ public class ClusterModelConfiguration :
             .Property(c => c.Id)
             .IsRequired()
             .IsFixedLength()
-            .HasMaxLength(36);
+            .HasColumnType("char(36)");
         
         //Name column
         builder
