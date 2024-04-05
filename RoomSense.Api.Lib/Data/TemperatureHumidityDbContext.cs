@@ -17,6 +17,7 @@ public class TemperatureHumidityDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
+            .HasDefaultSchema("room_sense")
             .ApplyConfiguration(new ClusterModelConfiguration())
             .ApplyConfiguration(new TemperatureHumidityModelConfiguration());
         
