@@ -18,7 +18,8 @@ public class ClusterModelConfiguration :
             .Property(c => c.Id)
             .IsRequired()
             .IsFixedLength()
-            .HasColumnType("char(36)");
+            .HasColumnType("char(36)")
+            .HasColumnName("id");
         
         //Name column
         builder
@@ -27,7 +28,8 @@ public class ClusterModelConfiguration :
         builder
             .Property(c => c.Name)
             .IsRequired()
-            .HasMaxLength(50);
+            .HasColumnType("varchar(50)")
+            .HasColumnName("name");
         
         //Relationship of Cluster with TemperatureHumidity
         builder
