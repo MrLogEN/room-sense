@@ -29,11 +29,13 @@ public class ClusterModelConfiguration :
             .IsRequired()
             .HasMaxLength(50);
         
-        
+        //Relationship of Cluster with TemperatureHumidity
         builder
             .HasMany<TemperatureHumidity>(c => c.Records)
             .WithOne(t => t.Cluster)
+            .HasForeignKey(t => t.Cluster)
+            .HasConstraintName("FK_temphum_cluster")
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("");
+            .IsRequired();
     }
 }
