@@ -34,9 +34,5 @@ public class TemperatureHumidityModelConfiguration :
             .Property(t => t.Temperature)
             .IsRequired()
             .HasColumnName("temp");
-
-        builder
-            .Property(t => t.Cluster)
-            .HasColumnName("cluster");
     }
 }
