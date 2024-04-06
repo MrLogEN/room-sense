@@ -13,13 +13,6 @@ public class ClusterModelConfiguration :
         builder
             .ToTable("cluster")
             .HasKey(c => c.Id);
-
-        builder
-            .Property(c => c.Id)
-            .IsRequired()
-            .IsFixedLength()
-            .HasColumnType("char(36)")
-            .HasColumnName("id");
         
         //Name column
         builder
@@ -35,9 +28,15 @@ public class ClusterModelConfiguration :
         builder
             .HasMany<TemperatureHumidity>(c => c.Records)
             .WithOne(t => t.Cluster)
-            .HasForeignKey(t => t.Cluster)
             .HasConstraintName("FK_temphum_cluster")
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
+
+        builder
+            .Property(c => c.Id)
+            .IsRequired()
+            .IsFixedLength()
+            .HasColumnType("char(36)")
+            .HasColumnName("id");
     }
 }
