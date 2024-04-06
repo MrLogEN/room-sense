@@ -9,6 +9,12 @@ public class TemperatureHumidityDbContext : DbContext
     public DbSet<TemperatureHumidity> TemperaturesAndHumidities { get; set; }
     public DbSet<Cluster> Clusters { get; set; }
 
+    public TemperatureHumidityDbContext(DbContextOptions<TemperatureHumidityDbContext> options)
+    : base(options)
+    {
+        
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
