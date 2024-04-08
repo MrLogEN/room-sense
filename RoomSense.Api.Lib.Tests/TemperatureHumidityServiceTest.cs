@@ -131,6 +131,72 @@ public class TemperatureHumidityServiceTest
         //assert
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public async Task GetRecordsFilteredByClusterAndDate_NoMatchForDate_ShouldReturnEmptyEnumerable()
+    {
+        //arrange
+        var start = new DateTime(2024, 5, 5, 12, 3, 48, 12);
+        var end = new DateTime(2024, 5, 6, 12, 3, 48, 12);
+        var clusterName = "Room 1";
+
+        var expected = 0;
+        
+        //action
+        var actual = (await _service.GetRecordsFilteredByClusterAndDate(start, end, clusterName)).ToList().Count;
+        
+        //assert
+        Assert.Equal(expected, actual);
+    }
+    [Fact]
+    public async Task GetRecordsFilteredByClusterAndDate_NoMatchForCluster_ShouldReturnEmptyEnumerable()
+    {
+        //arrange
+        var start = new DateTime(2024, 5, 2, 12, 3, 48, 12);
+        var end = new DateTime(2024, 5, 6, 12, 3, 48, 12);
+        var clusterName = "Never existing cluster";
+
+        var expected = 0;
+        
+        //action
+        var actual = (await _service.GetRecordsFilteredByClusterAndDate(start, end, clusterName)).ToList().Count;
+        
+        //assert
+        Assert.Equal(expected, actual);
+    }
+    [Fact]
+    public async Task GetRecordsFilteredByClusterAndDate_ShouldReturnOneRecord()
+    {
+        //arrange
+        var start = new DateTime(2024, 5, 4, 10, 5, 23, 300);
+        var end = new DateTime(2024, 5, 4, 12, 7, 23, 300);
+        var clusterName = "Room 1";
+
+        var expected = 1;
+        
+        //action
+        var actual = (await _service.GetRecordsFilteredByClusterAndDate(start, end, clusterName)).ToList().Count;
+        
+        //assert
+        Assert.Equal(expected, actual);
+    }
+    [Fact]
+    public async Task GetRecordsFilteredByClusterAndDate_ShouldReturnTwoRecords()
+    {
+        //arrange
+        var start = new DateTime(2024, 5, 4, 10, 5, 23, 300);
+        var end = new DateTime(2024, 5, 4, 13, 7, 23, 300);
+        var clusterName = "Room 1";
+
+        var expected = 2;
+        
+        //action
+        var actual = (await _service.GetRecordsFilteredByClusterAndDate(start, end, clusterName)).ToList().Count;
+        
+        //assert
+        Assert.Equal(expected, actual);
+    }
+    
     private void SeedDatabase()
     {
         
