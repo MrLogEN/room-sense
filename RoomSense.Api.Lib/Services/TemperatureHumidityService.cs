@@ -1,10 +1,6 @@
-using System.Collections;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomSense.Api.Lib.Data;
 using RoomSense.Api.Lib.Data.DTOs;
-using RoomSense.Api.Lib.Models;
 
 namespace RoomSense.Api.Lib.Services;
 
@@ -39,6 +35,12 @@ public class TemperatureHumidityService
         return Enumerable.Empty<GetAllRecords>();
     }
     public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByCluster(string clusterName)
+    {
+        return Enumerable.Empty<GetAllRecords>();
+    }
+
+    public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByClusterAndDate(DateTime start, DateTime end,
+        string clusterName)
     {
         return Enumerable.Empty<GetAllRecords>();
     }
