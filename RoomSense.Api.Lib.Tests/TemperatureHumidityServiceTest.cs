@@ -84,6 +84,34 @@ public class TemperatureHumidityServiceTest
         Assert.Equal(expectedCount, actualCount);
     }
 
+    [Fact]
+    public async Task GetRecordsFilteredByDate_InvalidRange_ShouldThrow()
+    {
+        //arrange
+        var start = new DateTime(2024, 5, 5, 12, 1, 1, 1);
+        var end = new DateTime(2024, 5, 5, 10, 1, 1, 1);
+        
+        //action
+        //assert
+        await Assert.ThrowsAsync<ArgumentException>(async () => await _service.GetRecordsFilteredByDate(start, end));
+        
+    }
+    [Fact]
+    public async Task GetRecordsFilteredByDate_ShouldReturnOneRecord()
+    {
+        
+        //arrange
+        
+        var start = new DateTime(2024, 5, 5, 12, 3, 48, 12);
+        var end = new DateTime(2024, 5, 5, 15, 3, 48, 12);
+        var expected = 1;
+        
+        //action
+
+        var actual = (await _service.GetRecordsFilteredByDate(start, end)).ToList().Count;
+        //assert
+        Assert.Equal(expected, actual);
+    }
     private void SeedDatabase()
     {
         
