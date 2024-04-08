@@ -39,6 +39,8 @@ public class TemperatureHumidityServiceTest
         //action
 
         await _service.CreateRecord(record);
+        
+        var actualCount = (await _contextMock.TemperaturesAndHumidities.ToListAsync()).Count;
 
         //assert
 
