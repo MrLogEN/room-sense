@@ -38,4 +38,8 @@ public class TemperatureHumidityService
     {
         return Enumerable.Empty<GetAllRecords>();
     }
+    public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByCluster(string clusterName)
+    {
+        return Enumerable.Empty<GetAllRecords>();
+    }
 }
