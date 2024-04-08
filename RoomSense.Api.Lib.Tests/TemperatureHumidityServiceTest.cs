@@ -23,6 +23,7 @@ public class TemperatureHumidityServiceTest
             .Options;
 
         _contextMock = new TemperatureHumidityDbContext(options);
+        _contextMock.Database.EnsureDeleted();
         SeedDatabase();
         _service = new TemperatureHumidityService(_contextMock);
     }
