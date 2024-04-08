@@ -21,8 +21,6 @@ public class TemperatureHumidityServiceTest
         var options = new DbContextOptionsBuilder<TemperatureHumidityDbContext>()
             .UseInMemoryDatabase(databaseName: "TempHumFakeDB")
             .Options;
-        
-        // _contextMock = Substitute.For<TemperatureHumidityDbContext>(options);
 
         _contextMock = new TemperatureHumidityDbContext(options);
         SeedDatabase();
@@ -33,18 +31,54 @@ public class TemperatureHumidityServiceTest
     public async Task CreateRecord_CreatesARecordForExistingCluster()
     {
         //arrange
-        //var record = new TemperatureHumidity(){}
         
+        var expectedCount = (await _contextMock.TemperaturesAndHumidities.ToListAsync()).Count + 1;
+        var record = new CreateTemperatureHumidity(32, 55, "Room 1");
+
         //action
-        
+
+        await _service.CreateRecord(record);
+
         //assert
+
+        var actualCount = (await _contextMock.TemperaturesAndHumidities.ToListAsync()).Count;
+        Assert.Equal(expectedCount, actualCount);
+
+    }
+    
+    [Fact]
+    public async Task CreateRecord_CreatesARecordForNewCluster()
+    {
+        //arrange
         
+        var expectedTempHumCount = (await _contextMock.TemperaturesAndHumidities.ToListAsync()).Count + 1;
+        var expectedClusterCount = (await _contextMock.Clusters.ToListAsync()).Count + 1;
+
+        var record = new CreateTemperatureHumidity(32, 55, "Room 3");
+
+        //action
+
+        await _service.CreateRecord(record);
+
+        //assert
+
+        var actualTempHumCount = (await _contextMock.TemperaturesAndHumidities.ToListAsync()).Count;
+        var actualClusterCount = (await _contextMock.Clusters.ToListAsync()).Count;
+
+        Assert.Equal(expectedTempHumCount, actualTempHumCount);
+        Assert.Equal(expectedClusterCount, actualClusterCount);
+
     }
 
     [Fact]
     public async Task GetAllRecords_ShouldReturnACollection()
     {
-        
+        //arrange
+        var expectedCount = (await _contextMock.TemperaturesAndHumidities.ToListAsync()).Count;
+        //action
+        var actualCount = (await _service.GetAllRecords()).ToList().Count;
+        //assert
+        Assert.Equal(expectedCount, actualCount);
     }
 
     private void SeedDatabase()
