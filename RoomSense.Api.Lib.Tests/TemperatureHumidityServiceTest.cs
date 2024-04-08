@@ -1,9 +1,4 @@
-
-using System.Globalization;
-using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using NSubstitute;
 using RoomSense.Api.Lib.Data;
 using RoomSense.Api.Lib.Data.DTOs;
 using RoomSense.Api.Lib.Models;
@@ -44,7 +39,7 @@ public class TemperatureHumidityServiceTest
 
         //assert
 
-        var actualCount = (await _contextMock.TemperaturesAndHumidities.ToListAsync()).Count;
+        
         Assert.Equal(expectedCount, actualCount);
 
     }
@@ -112,6 +107,30 @@ public class TemperatureHumidityServiceTest
         //assert
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public async Task GetRecordsFilteredByCluster_ShouldReturnEmptyEnumerable()
+    {
+        //arrange
+        var clusterName = "Never existing cluster";
+        var expected = 0;
+        //action
+        var actual = (await _service.GetRecordsFilteredByCluster(clusterName)).ToList().Count;
+        //assert
+        Assert.Equal(expected, actual);
+    }
+    
+    [Fact]
+    public async Task GetRecordsFilteredByCluster_ShouldReturnTwoRecords()
+    {
+        //arrange
+        var clusterName = "Room 1";
+        var expected = 2;
+        //action
+        var actual = (await _service.GetRecordsFilteredByCluster(clusterName)).ToList().Count;
+        //assert
+        Assert.Equal(expected, actual);
+    }
     private void SeedDatabase()
     {
         
@@ -160,7 +179,7 @@ public class TemperatureHumidityServiceTest
             Cluster = cluster2,
             Humidity = 50,
             Temperature = 24,
-            TimeStamp = new DateTime(2024, 5, 4, 12, 3, 48, 12)
+            TimeStamp = new DateTime(2024, 5, 5, 12, 3, 48, 12)
         };
         
         _contextMock.TemperaturesAndHumidities.Add(record1);
