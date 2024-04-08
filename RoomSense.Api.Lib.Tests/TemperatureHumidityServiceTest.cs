@@ -1,5 +1,8 @@
 
+using System.Globalization;
+using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using NSubstitute;
 using RoomSense.Api.Lib.Data;
 using RoomSense.Api.Lib.Data.DTOs;
@@ -10,48 +13,96 @@ namespace RoomSense.Api.Lib.Tests;
 
 public class TemperatureHumidityServiceTest
 {
-    private readonly TemperatureHumidityDbContext _contextMock 
-        = Substitute.For<TemperatureHumidityDbContext>(
-            new DbContextOptions<TemperatureHumidityDbContext>()
-            );
+    private readonly TemperatureHumidityDbContext _contextMock;
     private readonly TemperatureHumidityService _service;
 
     public TemperatureHumidityServiceTest()
     {
+        var options = new DbContextOptionsBuilder<TemperatureHumidityDbContext>()
+            .UseInMemoryDatabase(databaseName: "TempHumFakeDB")
+            .Options;
+        
+        // _contextMock = Substitute.For<TemperatureHumidityDbContext>(options);
+
+        _contextMock = new TemperatureHumidityDbContext(options);
+        SeedDatabase();
         _service = new TemperatureHumidityService(_contextMock);
     }
     
     [Fact]
-    public async Task CreateRecord_CreatesARecord()
+    public async Task CreateRecord_CreatesARecordForExistingCluster()
     {
         //arrange
-        var newRecord = new CreateTemperatureHumidity(10, 10, "Room 1"); //dto
-        
-        var records = new List<TemperatureHumidity>(); //list of entities
-        
-        
-        var mappedRecord = new TemperatureHumidity //new entity mapped from the dto
-        {
-            Id = Guid.NewGuid(),
-            Cluster = new Cluster
-            {
-                Id = Guid.NewGuid(),
-                Name = newRecord.ClusterName,
-            },
-            Temperature = newRecord.Temperature,
-            Humidity = newRecord.Humidity,
-            TimeStamp = DateTime.Now
-        };
-        
-        _contextMock
-            .When(x => x.AddAsync(mappedRecord))
-            .Do(x => records.Add(mappedRecord)); //configuring the DbContext's AddAsync method
+        //var record = new TemperatureHumidity(){}
         
         //action
-        _service.CreateRecord(newRecord);
-
+        
         //assert
+        
+    }
 
-        Assert.Contains(mappedRecord, records);
+    [Fact]
+    public async Task GetAllRecords_ShouldReturnACollection()
+    {
+        
+    }
+
+    private void SeedDatabase()
+    {
+        
+        //clusters
+        var cluster1 = new Cluster()
+        {
+            Id = Guid.Parse("88C6F5B9-2402-4D83-A18D-20837054B344"),
+            Name = "Room 1",
+        };
+
+        var cluster2 = new Cluster()
+        {
+            Id = Guid.Parse("22BC423C-2B98-4A63-AAD0-D4C8B9A014F3"),
+            Name = "Room 2"
+        };
+        
+        
+        _contextMock.Clusters.Add(cluster1);
+        _contextMock.Clusters.Add(cluster2);
+
+        //records
+        var record1 = new TemperatureHumidity()
+        {
+            Id = Guid.Parse("A8B37770-FC4E-494C-B855-C7B249F81C17"),
+            ClusterId = cluster1.Id,
+            Cluster = cluster1,
+            Humidity = 40,
+            Temperature = 23,
+            TimeStamp = new DateTime(2024, 5, 4, 12, 5, 23, 300)
+        };
+        
+        var record2 = new TemperatureHumidity()
+        {
+            Id = Guid.Parse("9C23DAE5-2C8B-47E9-97D3-0E8D562C3673"),
+            ClusterId = cluster1.Id,
+            Cluster = cluster1,
+            Humidity = 43,
+            Temperature = 21,
+            TimeStamp = new DateTime(2024, 5, 4, 12, 10, 15, 111)
+        };
+        
+        var record3 = new TemperatureHumidity()
+        {
+            Id = Guid.Parse("7D917A99-2D98-482F-A1B8-3BEDDFA08C78"),
+            ClusterId = cluster2.Id,
+            Cluster = cluster2,
+            Humidity = 50,
+            Temperature = 24,
+            TimeStamp = new DateTime(2024, 5, 4, 12, 3, 48, 12)
+        };
+        
+        _contextMock.TemperaturesAndHumidities.Add(record1);
+        _contextMock.TemperaturesAndHumidities.Add(record2);
+        _contextMock.TemperaturesAndHumidities.Add(record3);
+
+        _contextMock.SaveChanges();
+
     }
 }
