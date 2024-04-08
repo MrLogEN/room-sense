@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,5 +32,10 @@ public class TemperatureHumidityService
                 Temperature = t.Temperature,
                 TimeStamp = t.TimeStamp
             }).ToListAsync();
+    }
+
+    public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByDate(DateTime start, DateTime end)
+    {
+        return Enumerable.Empty<GetAllRecords>();
     }
 }
