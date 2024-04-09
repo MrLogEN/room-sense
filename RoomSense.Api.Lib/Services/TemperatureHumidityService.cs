@@ -75,7 +75,22 @@ public class TemperatureHumidityService : ITemperatureHumidityService
 
     public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByDate(DateTime start, DateTime end)
     {
-        return Enumerable.Empty<GetAllRecords>();
+        if (start > end)
+        {
+            throw new ArgumentException("starting date must precede end date!");
+        }
+
+        var result = await _context.TemperaturesAndHumidities
+            .Where(t => t.TimeStamp >= start && t.TimeStamp <= end)
+            .Select(t => new GetAllRecords()
+            {
+                ClusterName = t.Cluster.Name,
+                Humidity = t.Humidity,
+                Temperature = t.Temperature,
+                TimeStamp = t.TimeStamp
+            }).ToListAsync();
+        
+        return result;
     }
     public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByCluster(string clusterName)
     {
