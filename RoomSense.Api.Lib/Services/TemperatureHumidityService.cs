@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RoomSense.Api.Lib.Data;
 using RoomSense.Api.Lib.Data.DTOs;
+using RoomSense.Api.Lib.Models;
 
 namespace RoomSense.Api.Lib.Services;
 
@@ -19,7 +20,45 @@ public class TemperatureHumidityService : ITemperatureHumidityService
 
     public async Task CreateRecord(CreateTemperatureHumidity record)
     {
-        
+        var cluster = await _context.Clusters.SingleOrDefaultAsync(c => c.Name == record.ClusterName);
+
+        if (cluster is not null)
+        {
+            var temphum = new TemperatureHumidity()
+            {
+                Id = _idGenerator.GenerateId(),
+                Cluster = cluster,
+                ClusterId = cluster.Id,
+                Temperature = record.Temperature,
+                Humidity = record.Humidity,
+                TimeStamp = _timeStampGenerator.GenerateTimeStamp()
+            };
+            await _context.AddAsync(temphum);
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            cluster = new Cluster()
+            {
+                Id = _idGenerator.GenerateId(),
+                Name = record.ClusterName
+            };
+            
+            _context.Attach(cluster);
+            
+            var temphum = new TemperatureHumidity()
+            {
+                Id = _idGenerator.GenerateId(),
+                Cluster = cluster,
+                ClusterId = cluster.Id,
+                Temperature = record.Temperature,
+                Humidity = record.Humidity,
+                TimeStamp = _timeStampGenerator.GenerateTimeStamp()
+            };
+            
+            await _context.AddAsync(temphum);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<IEnumerable<GetAllRecords>> GetAllRecords()
