@@ -165,6 +165,22 @@ public class TemperatureHumidityServiceTest
         Assert.Equal(expected, actual);
     }
     [Fact]
+    public async Task GetRecordsFilteredByClusterAndDate_NoMatchForClusterAndForDate_ShouldReturnEmptyEnumerable()
+    {
+        //arrange
+        var start = new DateTime(2024, 1, 2, 12, 3, 48, 12);
+        var end = new DateTime(2024, 1, 6, 12, 3, 48, 12);
+        var clusterName = "Never existing cluster";
+
+        var expected = 0;
+        
+        //action
+        var actual = (await _service.GetRecordsFilteredByClusterAndDate(start, end, clusterName)).ToList().Count;
+        
+        //assert
+        Assert.Equal(expected, actual);
+    }
+    [Fact]
     public async Task GetRecordsFilteredByClusterAndDate_ShouldReturnOneRecord()
     {
         //arrange
