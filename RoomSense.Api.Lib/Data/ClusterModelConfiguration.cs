@@ -28,6 +28,7 @@ public class ClusterModelConfiguration :
         builder
             .HasMany<TemperatureHumidity>(c => c.Records)
             .WithOne(t => t.Cluster)
+            .HasForeignKey(t => t.ClusterId)
             .HasConstraintName("FK_temphum_cluster")
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
