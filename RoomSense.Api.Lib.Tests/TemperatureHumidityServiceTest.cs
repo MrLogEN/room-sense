@@ -9,7 +9,9 @@ namespace RoomSense.Api.Lib.Tests;
 public class TemperatureHumidityServiceTest
 {
     private readonly TemperatureHumidityDbContext _contextMock;
-    private readonly TemperatureHumidityService _service;
+    private readonly ITemperatureHumidityService _service;
+    private readonly IIdGenerator _idGenerator;
+    private readonly ITimeStampGenerator _timeStampGenerator;
 
     public TemperatureHumidityServiceTest()
     {
@@ -20,7 +22,9 @@ public class TemperatureHumidityServiceTest
         _contextMock = new TemperatureHumidityDbContext(options);
         _contextMock.Database.EnsureDeleted();
         SeedDatabase();
-        _service = new TemperatureHumidityService(_contextMock);
+        _idGenerator = new IdGenerator();
+        _timeStampGenerator = new TimeStampGenerator();
+        _service = new TemperatureHumidityService(_contextMock, _idGenerator, _timeStampGenerator);
     }
     
     [Fact]
