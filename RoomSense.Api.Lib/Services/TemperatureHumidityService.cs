@@ -44,7 +44,7 @@ public class TemperatureHumidityService : ITemperatureHumidityService
                 Name = record.ClusterName
             };
             
-            _context.Attach(cluster);
+            await _context.AddAsync(cluster);
             
             var temphum = new TemperatureHumidity()
             {
