@@ -4,7 +4,7 @@ using RoomSense.Api.Lib.Data.DTOs;
 
 namespace RoomSense.Api.Lib.Services;
 
-public class TemperatureHumidityService
+public class TemperatureHumidityService : ITemperatureHumidityService
 {
     private readonly TemperatureHumidityDbContext _context;
 

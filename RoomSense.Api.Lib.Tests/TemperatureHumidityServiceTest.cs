@@ -9,7 +9,7 @@ namespace RoomSense.Api.Lib.Tests;
 public class TemperatureHumidityServiceTest
 {
     private readonly TemperatureHumidityDbContext _contextMock;
-    private readonly TemperatureHumidityService _service;
+    private readonly ITemperatureHumidityService _service;
 
     public TemperatureHumidityServiceTest()
     {
