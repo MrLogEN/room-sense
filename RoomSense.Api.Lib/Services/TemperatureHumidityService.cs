@@ -7,10 +7,14 @@ namespace RoomSense.Api.Lib.Services;
 public class TemperatureHumidityService : ITemperatureHumidityService
 {
     private readonly TemperatureHumidityDbContext _context;
+    private readonly IIdGenerator _idGenerator;
+    private readonly ITimeStampGenerator _timeStampGenerator;
 
-    public TemperatureHumidityService(TemperatureHumidityDbContext context)
+    public TemperatureHumidityService(TemperatureHumidityDbContext context, IIdGenerator idGenerator, ITimeStampGenerator timeStampGenerator)
     {
         _context = context;
+        _idGenerator = idGenerator;
+        _timeStampGenerator = timeStampGenerator;
     }
 
     public async Task CreateRecord(CreateTemperatureHumidity record)
