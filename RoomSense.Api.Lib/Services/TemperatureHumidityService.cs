@@ -94,7 +94,19 @@ public class TemperatureHumidityService : ITemperatureHumidityService
     }
     public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByCluster(string clusterName)
     {
-        return Enumerable.Empty<GetAllRecords>();
+
+        var result = await _context.TemperaturesAndHumidities
+            .Where(t => t.Cluster.Name == clusterName)
+            .Select(t => new GetAllRecords()
+            {
+                ClusterName = t.Cluster.Name,
+                Humidity = t.Humidity,
+                Temperature = t.Temperature,
+                TimeStamp = t.TimeStamp
+            })
+            .ToListAsync();
+
+        return result;
     }
 
     public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByClusterAndDate(DateTime start, DateTime end,
