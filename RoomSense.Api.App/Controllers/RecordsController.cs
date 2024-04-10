@@ -23,7 +23,7 @@ public class RecordsController : ControllerBase
     public async Task<IActionResult> CreateRecord([FromBody] CreateTemperatureHumidity record)
     {
         await _temperatureHumidityService.CreateRecord(record);
-        return Ok();
+        return Created();
     }
 
     [HttpGet]
