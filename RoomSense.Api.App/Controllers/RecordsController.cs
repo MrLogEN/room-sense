@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using RoomSense.Api.Lib.Authentication;
 using RoomSense.Api.Lib.Data.DTOs;
+using RoomSense.Api.Lib.Data.DTOs.Responses;
 using RoomSense.Api.Lib.Services;
 
 namespace RoomSense.Api.App.Controllers;
@@ -16,8 +18,7 @@ public class RecordsController : ControllerBase
         _temperatureHumidityService = temperatureHumidity;
     }
 
-    [HttpPost]
-    [Route("Create")]
+    [HttpPost("Create")]
     [ServiceFilter(typeof(ApiKeyFilter))]
     public async Task<IActionResult> CreateRecord([FromBody] CreateTemperatureHumidity record)
     {
