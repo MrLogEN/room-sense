@@ -37,4 +37,27 @@ public class RecordsController : ControllerBase
             Data = result
         });
     }
+
+    [HttpGet("Filter")]
+    public async Task<ActionResult<GetRecordsResponse>> GetRecordsFilteredByDate([FromQuery] DateTime start, [FromQuery] DateTime end)
+    {
+        try
+        {
+            var result = await _temperatureHumidityService.GetRecordsFilteredByDate(start, end);
+            return Ok(new GetRecordsResponse()
+            {
+                Status = 200,
+                Message = "Records fetched successfully.",
+                Data = result
+            });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new GetRecordsResponse()
+            {
+                Status = 400,
+                Message = "Starting date must precede ending date",
+            });
+        }
+    }
 }
