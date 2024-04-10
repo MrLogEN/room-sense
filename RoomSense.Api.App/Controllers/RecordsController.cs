@@ -74,4 +74,32 @@ public class RecordsController : ControllerBase
             Data = result
         });
     }
+
+    [HttpGet("Filter/ClusterAndDate")]
+    public async Task<ActionResult<GetRecordsResponse>> GetRecordsFilteredByClusterAndDate(
+        [FromQuery] DateTime start,
+        [FromQuery] DateTime end,
+        [FromQuery] string clusterName)
+    {
+        try
+        {
+            var result = await _temperatureHumidityService
+                .GetRecordsFilteredByClusterAndDate(start, end, clusterName);
+
+            return Ok(new GetRecordsResponse()
+            {
+                Status = 200,
+                Message = "Records fetched successfully.",
+                Data = result
+            });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new GetRecordsResponse()
+            {
+                Status = 400,
+                Message = "Starting date must precede ending date",
+            });
+        }
+    }
 }
