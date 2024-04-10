@@ -27,9 +27,14 @@ public class RecordsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<GetAllRecords>>> GetAllRecords()
+    public async Task<ActionResult<GetRecordsResponse>> GetAllRecords()
     { 
         var result = await _temperatureHumidityService.GetAllRecords();
-        return Ok(result);
+        return Ok(new GetRecordsResponse()
+        {
+            Status = 200,
+            Message = "Records fetched successfully.",
+            Data = result
+        });
     }
 }
