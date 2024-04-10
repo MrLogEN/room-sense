@@ -184,6 +184,19 @@ public class TemperatureHumidityServiceTest
         //assert
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public async Task GetRecordsFilteredByClusterAndDate_WrongOrderOfDates_ShouldThrowArgumentException()
+    {
+        //arrange
+        var start = new DateTime(2024, 5, 2, 12, 3, 48, 12);
+        var end = new DateTime(2024, 1, 6, 12, 3, 48, 12);
+        var clusterName = "Room 1";
+        //action
+        //assert
+        await Assert.ThrowsAsync<ArgumentException>(async () =>
+            await _service.GetRecordsFilteredByClusterAndDate(start, end, clusterName));
+    }
     [Fact]
     public async Task GetRecordsFilteredByClusterAndDate_ShouldReturnOneRecord()
     {

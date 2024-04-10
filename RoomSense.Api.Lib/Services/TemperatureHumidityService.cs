@@ -112,6 +112,10 @@ public class TemperatureHumidityService : ITemperatureHumidityService
     public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByClusterAndDate(DateTime start, DateTime end,
         string clusterName)
     {
+        if (start > end)
+        {
+            throw new ArgumentException("starting date must precede end date!");
+        }
 
         var result = await _context.TemperaturesAndHumidities
             .Where(t => t.TimeStamp >= start && t.TimeStamp <= end && t.Cluster.Name == clusterName)
