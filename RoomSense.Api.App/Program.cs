@@ -1,5 +1,6 @@
 using RoomSense.Api.Lib.Authentication;
 using RoomSense.Api.Lib.Data;
+using RoomSense.Api.Lib.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<ApiKeyFilter>();
 
+
 builder.Services.AddNpgsql<TemperatureHumidityDbContext>("");
+
+builder.Services.AddTransient<ITimeStampGenerator, TimeStampGenerator>();
+builder.Services.AddTransient<IIdGenerator, IdGenerator>();
+builder.Services.AddTransient<ITemperatureHumidityService, TemperatureHumidityService>();
+
 
 var app = builder.Build();
 
