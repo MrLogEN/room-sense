@@ -4,6 +4,6 @@ public class TimeStampGenerator : ITimeStampGenerator
 {
     public DateTime GenerateTimeStamp()
     {
-        return DateTime.Now;
+        return DateTime.Now.ToUniversalTime();
     }
 }

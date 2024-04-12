@@ -22,7 +22,7 @@ public class TemperatureHumidityModelConfiguration :
         builder
             .Property(t => t.TimeStamp)
             .IsRequired()
-            .HasColumnType("timestamp")
+            .HasColumnType("timestamp with time zone")
             .HasColumnName("time");
 
         builder
