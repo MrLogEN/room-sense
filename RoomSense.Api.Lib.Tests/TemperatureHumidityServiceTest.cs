@@ -236,13 +236,13 @@ public class TemperatureHumidityServiceTest
         //clusters
         var cluster1 = new Cluster()
         {
-            Id = Guid.Parse("88C6F5B9-2402-4D83-A18D-20837054B344"),
+            Id = Guid.Parse("88C6F5B9-2402-4D83-A18D-20837054B344").ToString()    ,
             Name = "Room 1",
         };
 
         var cluster2 = new Cluster()
         {
-            Id = Guid.Parse("22BC423C-2B98-4A63-AAD0-D4C8B9A014F3"),
+            Id = Guid.Parse("22BC423C-2B98-4A63-AAD0-D4C8B9A014F3").ToString(),
             Name = "Room 2"
         };
         
@@ -253,7 +253,7 @@ public class TemperatureHumidityServiceTest
         //records
         var record1 = new TemperatureHumidity()
         {
-            Id = Guid.Parse("A8B37770-FC4E-494C-B855-C7B249F81C17"),
+            Id = Guid.Parse("A8B37770-FC4E-494C-B855-C7B249F81C17").ToString(),
             ClusterId = cluster1.Id,
             Cluster = cluster1,
             Humidity = 40,
@@ -263,7 +263,7 @@ public class TemperatureHumidityServiceTest
         
         var record2 = new TemperatureHumidity()
         {
-            Id = Guid.Parse("9C23DAE5-2C8B-47E9-97D3-0E8D562C3673"),
+            Id = Guid.Parse("9C23DAE5-2C8B-47E9-97D3-0E8D562C3673").ToString(),
             ClusterId = cluster1.Id,
             Cluster = cluster1,
             Humidity = 43,
@@ -273,7 +273,7 @@ public class TemperatureHumidityServiceTest
         
         var record3 = new TemperatureHumidity()
         {
-            Id = Guid.Parse("7D917A99-2D98-482F-A1B8-3BEDDFA08C78"),
+            Id = Guid.Parse("7D917A99-2D98-482F-A1B8-3BEDDFA08C78").ToString(),
             ClusterId = cluster2.Id,
             Cluster = cluster2,
             Humidity = 50,
