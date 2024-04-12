@@ -26,7 +26,7 @@ public class TemperatureHumidityService : ITemperatureHumidityService
         {
             var temphum = new TemperatureHumidity()
             {
-                Id = _idGenerator.GenerateId(),
+                Id = _idGenerator.GenerateId().ToString(),
                 Cluster = cluster,
                 ClusterId = cluster.Id,
                 Temperature = record.Temperature,
@@ -40,7 +40,7 @@ public class TemperatureHumidityService : ITemperatureHumidityService
         {
             cluster = new Cluster()
             {
-                Id = _idGenerator.GenerateId(),
+                Id = _idGenerator.GenerateId().ToString(),
                 Name = record.ClusterName
             };
             
@@ -48,7 +48,7 @@ public class TemperatureHumidityService : ITemperatureHumidityService
             
             var temphum = new TemperatureHumidity()
             {
-                Id = _idGenerator.GenerateId(),
+                Id = _idGenerator.GenerateId().ToString(),
                 Cluster = cluster,
                 ClusterId = cluster.Id,
                 Temperature = record.Temperature,
