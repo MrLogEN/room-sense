@@ -34,7 +34,7 @@ public class RecordsController : ControllerBase
         {
             Status = 200,
             Message = "Records fetched successfully.",
-            Data = result
+            Data = result ?? Enumerable.Empty<GetAllRecords>()
         });
     }
 
@@ -48,7 +48,7 @@ public class RecordsController : ControllerBase
             {
                 Status = 200,
                 Message = "Records fetched successfully.",
-                Data = result
+                Data = result ?? Enumerable.Empty<GetAllRecords>()
             });
         }
         catch (Exception e)
@@ -71,7 +71,7 @@ public class RecordsController : ControllerBase
         {
             Status = 200,
             Message = "Records fetched successfully.",
-            Data = result
+            Data = result ?? Enumerable.Empty<GetAllRecords>()
         });
     }
 
@@ -90,7 +90,7 @@ public class RecordsController : ControllerBase
             {
                 Status = 200,
                 Message = "Records fetched successfully.",
-                Data = result
+                Data = result ?? Enumerable.Empty<GetAllRecords>()
             });
         }
         catch (Exception e)
