@@ -61,7 +61,7 @@ public class TemperatureHumidityService : ITemperatureHumidityService
         }
     }
 
-    public async Task<IEnumerable<GetAllRecords>> GetAllRecords()
+    public async Task<IEnumerable<GetAllRecords>?> GetAllRecords()
     {
         return await _context.TemperaturesAndHumidities
             .Select(t => new GetAllRecords()
@@ -73,8 +73,10 @@ public class TemperatureHumidityService : ITemperatureHumidityService
             }).ToListAsync();
     }
 
-    public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByDate(DateTime start, DateTime end)
+    public async Task<IEnumerable<GetAllRecords>?> GetRecordsFilteredByDate(DateTime start, DateTime end)
     {
+        start = start.ToUniversalTime();
+        end = end.ToUniversalTime();
         if (start > end)
         {
             throw new ArgumentException("starting date must precede end date!");
@@ -92,7 +94,7 @@ public class TemperatureHumidityService : ITemperatureHumidityService
         
         return result;
     }
-    public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByCluster(string clusterName)
+    public async Task<IEnumerable<GetAllRecords>?> GetRecordsFilteredByCluster(string clusterName)
     {
 
         var result = await _context.TemperaturesAndHumidities
@@ -109,7 +111,7 @@ public class TemperatureHumidityService : ITemperatureHumidityService
         return result;
     }
 
-    public async Task<IEnumerable<GetAllRecords>> GetRecordsFilteredByClusterAndDate(DateTime start, DateTime end,
+    public async Task<IEnumerable<GetAllRecords>?> GetRecordsFilteredByClusterAndDate(DateTime start, DateTime end,
         string clusterName)
     {
         if (start > end)
