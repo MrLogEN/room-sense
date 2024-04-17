@@ -54,4 +54,4 @@ jobs:
           app-name: 'room-sense-api'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3EB0D82016FC4F4DB16D55C86A6DECD2 }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
