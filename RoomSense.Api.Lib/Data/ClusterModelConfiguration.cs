@@ -37,7 +37,7 @@ public class ClusterModelConfiguration :
             .Property(c => c.Id)
             .IsRequired()
             .IsFixedLength()
-            .HasColumnType("char(36)")
+            .HasColumnType("uuid")
             .HasColumnName("id");
     }
 }

@@ -15,7 +15,7 @@ public class TemperatureHumidityModelConfiguration :
 
         builder
             .Property(t => t.Id)
-            .HasColumnType("char(36)")
+            .HasColumnType("uuid")
             .IsRequired()
             .HasColumnName("id");
 
