@@ -22,11 +22,14 @@ jobs:
           dotnet-version: '8.x'
           include-prerelease: true
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Build Lib Project
+        run: dotnet build RoomSense.Api.Lib/RoomSense.Api.Lib.csproj --configuration Release
+        
+      - name: Build App Project
+        run: dotnet build RoomSense.Api.App/RoomSense.Api.App.csproj --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/room-sense
+      - name: dotnet publish app
+        run: dotnet publish RoomSense.Api.App/RoomSense.Api.App.csproj -c Release -o ${{env.DOTNET_ROOT}}/room-sense
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
