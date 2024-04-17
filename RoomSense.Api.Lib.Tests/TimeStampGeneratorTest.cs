@@ -14,7 +14,7 @@ public class TimeStampGeneratorTest
     [Fact]
     public void GenerateTimeStamp_ShoulReturnADateTime()
     {
-        var lesserTime = DateTime.Now;
+        var lesserTime = DateTime.UtcNow;
         var generated = _timeStampGenerator.GenerateTimeStamp();
         
         Assert.True(lesserTime < generated);
