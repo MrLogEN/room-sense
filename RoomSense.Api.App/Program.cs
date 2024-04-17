@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
-builder.Services.AddNpgsql<TemperatureHumidityDbContext>(builder.Configuration.GetConnectionString("room-sense-db"));
+builder.Services.AddNpgsql<TemperatureHumidityDbContext>(builder.Configuration.GetConnectionString("room_sense_db"));
 
 builder.Services.AddScoped<ApiKeyFilter>();
 builder.Services.AddTransient<ITimeStampGenerator, TimeStampGenerator>();
